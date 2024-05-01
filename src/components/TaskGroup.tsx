@@ -1,16 +1,15 @@
-import { ClipboardText } from "phosphor-react";
-import style from "./Tasks.module.css";
-
+import style from "./TaskGroup.module.css";
 import Clipboard from "../assets/Clipboard.svg";
+import { Task } from "./Task";
 
-const task = [];
+const task = [""];
 
 export function Tasks() {
 	return (
 		<section className={style.container}>
 			<header className={style.header}>
 				<h3>
-					Tarefas Criadas <span>0</span>
+					Tarefas Criadas <span>{task.length}</span>
 				</h3>
 				<h3>
 					Concluidas <span>0</span>
@@ -28,7 +27,9 @@ export function Tasks() {
 						</div>
 					</div>
 				) : (
-					<div>Task</div>
+					task.map((task) => {
+						return <Task key={task} />;
+					})
 				)}
 			</div>
 		</section>

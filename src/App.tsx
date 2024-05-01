@@ -1,6 +1,6 @@
 import { Header } from "./components/Header";
 import { NewTaskInputForm } from "./components/NewTaskInpuForm";
-import { Tasks } from "./components/Tasks";
+import { Tasks } from "./components/TaskGroup";
 import "./global.css";
 import style from "./App.module.css";
 
