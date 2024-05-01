@@ -15,6 +15,7 @@ export interface TaskProps {
 export function App() {
 	const [tasks, setTasks] = useState<TaskProps[]>([]);
 	const [newTaskText, setNewTaskText] = useState("");
+
 	const isInputTaskTextEmpty = newTaskText.length === 0;
 
 	function handleAddNewTask(e: FormEvent) {
@@ -36,6 +37,13 @@ export function App() {
 	function handleNewTaskChange(e: ChangeEvent<HTMLInputElement>) {
 		e.target.setCustomValidity("");
 		setNewTaskText(e.target.value);
+	}
+
+	function handleTaskCompletion(id: number) {
+		const updatedTasks = tasks.map((task) =>
+			task.id === id ? { ...task, isComplete: !task.isComplete } : task,
+		);
+		setTasks(updatedTasks);
 	}
 
 	return (
@@ -70,7 +78,10 @@ export function App() {
 						</h3>
 						<h3>
 							Concluidas{" "}
-							<span>{tasks.filter((task) => task.isComplete).length}</span>
+							<span>
+								{tasks.filter((task) => task.isComplete).length} de{" "}
+								{tasks.length}
+							</span>
 						</h3>
 					</header>
 					<div className={style.task}>
@@ -92,12 +103,16 @@ export function App() {
 											<input
 												type="checkbox"
 												id={`checkbox-${task.id}`}
-												className="checkbox"
+												checked={task.isComplete}
+												onChange={() => handleTaskCompletion(task.id)}
 											/>
 											<label htmlFor={`checkbox-${task.id}`}></label>
 										</div>
 									</div>
-									<p>{task.content}</p>
+									<p className={task.isComplete ? style.complete : ""}>
+										{task.content}
+									</p>
+
 									<button
 										type="button"
 										onClick={() => handleDeleteTask(task.id)}
