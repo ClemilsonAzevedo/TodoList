@@ -35,4 +35,11 @@
   border: 0;
   color: var(--gray-100);
   background-color: var(--blue-800);
+
+  transition: background .2s ease;
+}
+
+.button:hover {
+  background-color: var(--blue-500);
+  cursor: pointer;
 }
