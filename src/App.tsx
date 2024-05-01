@@ -1,9 +1,9 @@
+import { useState, ChangeEvent, FormEvent } from "react";
+import Clipboard from "./assets/Clipboard.svg";
 import "./global.css";
+import style from "./App.module.css";
 import { Header } from "./components/Header";
 import { CreateNewTaskForm } from "./components/CreateNewTaskForm";
-import style from "./App.module.css";
-import Clipboard from "./assets/Clipboard.svg";
-import { useState, ChangeEvent, FormEvent } from "react";
 import { Task } from "./components/Task";
 
 interface TaskProps {
@@ -17,16 +17,6 @@ export function App() {
 	const [tasks, setTasks] = useState<TaskProps[]>([]);
 	const [taskIdCounter, setTaskIdCounter] = useState(1);
 
-	function handleDeleteTask(id: number) {
-		const tasksWithoutDeletedOne = tasks.filter((task) => task.id !== id);
-		setTasks(tasksWithoutDeletedOne);
-	}
-
-	function handleNewTaskChange(e: ChangeEvent<HTMLInputElement>) {
-		e.target.setCustomValidity("");
-		setNewTaskText(e.target.value);
-	}
-
 	function handleAddNewTask(e: FormEvent) {
 		e.preventDefault();
 		const newTask = {
@@ -37,6 +27,16 @@ export function App() {
 		setTasks([...tasks, newTask]);
 		setTaskIdCounter(taskIdCounter + 1);
 		setNewTaskText("");
+	}
+
+	function handleNewTaskChange(e: ChangeEvent<HTMLInputElement>) {
+		e.target.setCustomValidity("");
+		setNewTaskText(e.target.value);
+	}
+
+	function handleDeleteTask(id: number) {
+		const tasksWithoutDeletedOne = tasks.filter((task) => task.id !== id);
+		setTasks(tasksWithoutDeletedOne);
 	}
 
 	function handleTaskCompletion(id: number) {

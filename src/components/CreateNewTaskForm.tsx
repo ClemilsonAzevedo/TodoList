@@ -1,10 +1,10 @@
 import { PlusCircle } from "phosphor-react";
 import { ChangeEvent, FormEvent } from "react";
-import style from './CreateNewTaskForm.module.css'
+import style from "./CreateNewTaskForm.module.css";
 
 export interface CreateNewTaskFormProps {
-	handleAddNewTask: (e: FormEvent) => void; // Recebe um evento de formulário
-	handleNewTaskChange: (e: ChangeEvent<HTMLInputElement>) => void; // Recebe um evento de mudança no input
+	handleAddNewTask: (e: FormEvent) => void;
+	handleNewTaskChange: (e: ChangeEvent<HTMLInputElement>) => void;
 	newTaskText: string;
 }
 

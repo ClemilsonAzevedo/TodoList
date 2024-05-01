@@ -25,10 +25,10 @@
 
  body {
    background-color: var(--gray-600);
-
-   -webkit-font-smoothing: antialiased;
    color: var(--gray-100);
+
    font-family: "Inter", sans-serif;
+   -webkit-font-smoothing: antialiased;
  }
 
  body,

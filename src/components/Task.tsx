@@ -29,6 +29,7 @@ export function Task({
 					<label htmlFor={`task-${id}`}></label>
 				</div>
 			</div>
+
 			<p className={isComplete ? style.complete : ""}>{content}</p>
 
 			<button type="button" onClick={() => handleDeleteTask(id)}>
