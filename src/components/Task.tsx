@@ -1,22 +1,26 @@
 import { Trash } from "phosphor-react";
 import style from "./Task.module.css";
 
-export function Task() {
+export interface TaskProps {
+	content: string;
+	isComplete: boolean;
+}
+
+export function Task({ content, isComplete }: TaskProps) {
+	const uniqueId = `checkbox-${content.replace(/\s+/g, "-").toLowerCase()}`;
+
 	return (
-		<div className={style.task}>
+		<div className={isComplete ? style.task : style.complete}>
 			<div className={style.check}>
 				<div className={style.round}>
-					<input type="checkbox" id="checkbox" />
-					<label htmlFor="checkbox"></label>
+					<input type="checkbox" id={uniqueId} className="checkbox" />
+					<label htmlFor={uniqueId}></label>
 				</div>
 			</div>
-			<p>
-				Integer urna interdum massa libero auctor neque turpis turpis semper.
-				Duis vel sed fames integer.
-			</p>
+			<p>{content}</p>
 			<button type="button">
-        <Trash size={24} />
-      </button>
+				<Trash size={24} />
+			</button>
 		</div>
 	);
 }

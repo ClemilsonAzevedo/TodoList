@@ -10,10 +10,13 @@
   align-items: start;
 }
 
+.complete{
+  background-color: black;
+}
+
 .check {
   min-width: 24px;
   min-height: 24px;
-  margin: 0 auto;
   border-radius: 100%;
 
   transition: all .2s ease;
@@ -78,6 +81,7 @@
   font-size: 0.875rem;
   line-height: 140%;
   text-wrap: wrap;
+  flex: 1;
 }
 
 .task button[type="button"] {
@@ -89,6 +93,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  color: var(--gray-300);
 
   transition: all .2s ease;
 }
