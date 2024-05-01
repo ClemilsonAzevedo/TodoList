@@ -2,47 +2,35 @@ import { Header } from "./components/Header";
 import "./global.css";
 import style from "./App.module.css";
 import Clipboard from "./assets/Clipboard.svg";
-import { PlusCircle } from "phosphor-react";
+import { PlusCircle, Trash } from "phosphor-react";
 import { useState, FormEvent, ChangeEvent } from "react";
-import { Task } from "./components/Task";
+import taskStyle from "./components/Task.module.css";
 
-const allTasks = [
-	{
-		id: 1,
-		content: "Finish the report",
-		isComplete: false,
-	},
-	{
-		id: 2,
-		content: "Attend the meeting",
-		isComplete: true,
-	},
-	{
-		id: 3,
-		content: "Buy groceries",
-		isComplete: false,
-	},
-	{
-		id: 4,
-		content: "Clean the house",
-		isComplete: true,
-	},
-	{
-		id: 5,
-		content: "Learn a new programming language",
-		isComplete: false,
-	},
-];
+export interface TaskProps {
+	id: number;
+	content: string;
+	isComplete: boolean;
+}
 
 export function App() {
-	const [tasks, setTasks] = useState(["Minha primeira Task"]);
+	const [tasks, setTasks] = useState<TaskProps[]>([]);
 	const [newTaskText, setNewTaskText] = useState("");
 	const isInputTaskTextEmpty = newTaskText.length === 0;
 
 	function handleAddNewTask(e: FormEvent) {
 		e.preventDefault();
-		setTasks([...tasks, newTaskText]);
+		const newTask: TaskProps = {
+			id: tasks.length + 1,
+			content: newTaskText,
+			isComplete: false,
+		};
+		setTasks([...tasks, newTask]);
 		setNewTaskText("");
+	}
+
+	function handleDeleteTask(id: number) {
+		const tasksWithoutDeletedOne = tasks.filter((task) => task.id !== id);
+		setTasks(tasksWithoutDeletedOne);
 	}
 
 	function handleNewTaskChange(e: ChangeEvent<HTMLInputElement>) {
@@ -81,7 +69,8 @@ export function App() {
 							Tarefas Criadas <span>{tasks.length}</span>
 						</h3>
 						<h3>
-							Concluidas <span>0</span>
+							Concluidas{" "}
+							<span>{tasks.filter((task) => task.isComplete).length}</span>
 						</h3>
 					</header>
 					<div className={style.task}>
@@ -96,9 +85,27 @@ export function App() {
 								</div>
 							</div>
 						) : (
-							tasks.map((task) => {
-								return <Task key={task} content={task} isComplete />;
-							})
+							tasks.map((task) => (
+								<div key={task.id} className={taskStyle.task}>
+									<div className={taskStyle.check}>
+										<div className={taskStyle.round}>
+											<input
+												type="checkbox"
+												id={`checkbox-${task.id}`}
+												className="checkbox"
+											/>
+											<label htmlFor={`checkbox-${task.id}`}></label>
+										</div>
+									</div>
+									<p>{task.content}</p>
+									<button
+										type="button"
+										onClick={() => handleDeleteTask(task.id)}
+									>
+										<Trash size={24} />
+									</button>
+								</div>
+							))
 						)}
 					</div>
 				</section>
